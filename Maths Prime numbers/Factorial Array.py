@@ -67,7 +67,7 @@ class Solution:
             b //= 2
             a = (a * a) % self.mod
 
-        return a
+        return res
 
 
     def solve(self, A):
@@ -76,13 +76,17 @@ class Solution:
         tmp_arr = [1]*(n+1)
         self.getPrime(tmp_arr, n)
         prime_arr = []
-        for i in range(1, n+1):
+        for i in range(2, n+1):
             if tmp_arr[i]:
                 prime_arr.append(i)
 
         i, j = 0, 0
         ans = 0
         while i < len(A) and j < len(prime_arr):
+            if A[i] == 1:
+                i += 1
+                continue
+
             p = prime_arr[j]
             count = 0
             while i < len(A) and A[i] < p:
@@ -98,6 +102,6 @@ class Solution:
         return int(ans)
 
 
-A = [2, 3, 4]
+A = [2, 3, 2, 3]
 ans = Solution().solve(A)
 print(ans)
