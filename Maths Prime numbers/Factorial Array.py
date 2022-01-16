@@ -45,10 +45,11 @@ Array B will be : [2, 6, 24]
 The total possible subsequences are 4 : [2], [6], [24], [6, 24].
 '''
 
+import math
+
 class Solution:
 
     mod = 10**9 + 7
-    elem_mod = 10**6
 
     def getPrime(self, arr, n):
         i = 2
@@ -58,8 +59,20 @@ class Solution:
                     arr[j] = 0
             i += 1
 
+    def power(self, a, b):
+        res = 1
+        while b:
+            if b % 2:
+                res = (a * res) % self.mod
+            b //= 2
+            a = (a * a) % self.mod
+
+        return a
+
+
     def solve(self, A):
-        n = max(A)
+        A = sorted(A)
+        n = A[-1]
         tmp_arr = [1]*(n+1)
         self.getPrime(tmp_arr, n)
         prime_arr = []
@@ -67,8 +80,24 @@ class Solution:
             if tmp_arr[i]:
                 prime_arr.append(i)
 
-        return prime_arr
+        i, j = 0, 0
+        ans = 0
+        while i < len(A) and j < len(prime_arr):
+            p = prime_arr[j]
+            count = 0
+            while i < len(A) and A[i] < p:
+                count += 1
+                i += 1
 
-A = [2, 3, 2, 3]
+            j += 1
+            ans = (ans + self.power(2, count) - 1) % self.mod
+
+        if i < len(A):
+            ans = (ans + self.power(2, len(A) - i) - 1) % self.mod
+
+        return int(ans)
+
+
+A = [2, 3, 4]
 ans = Solution().solve(A)
 print(ans)
