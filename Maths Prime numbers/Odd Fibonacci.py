@@ -45,3 +45,15 @@ Explanation 1:
  From the above values only three values are odd.
 '''
 
+class Solution:
+    # @param A : integer
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        a = A - A//3
+        if A%3:
+            a = A - A//3 - 1
+
+        b = B - B//3
+
+        return b - a
