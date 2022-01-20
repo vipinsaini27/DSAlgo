@@ -44,26 +44,20 @@ Explanation 2:
  So the count will be [4, 3, 4].
 '''
 
+n = 10**6
+div = [1]*(n+1)
+
+for i in range(2, n+1):
+    for j in range(i, n+1, i):
+        div[j] += 1
 
 class Solution:
-    # @param A : list of integers
-    # @return a list of integers
+
     def solve(self, A):
+        global div
         ans = []
 
-        n = 10 ** 6
-        div = [0] * (n + 1)
-
-        i = 1
-        while i <= n:
-            j = i
-            while j <= n:
-                div[j] += 1
-                j += i
-
-            i += 1
-
-        for val in A:
-            ans.append(div[val])
+        for v in A:
+            ans.append(div[v])
 
         return ans
