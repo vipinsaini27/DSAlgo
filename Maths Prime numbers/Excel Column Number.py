@@ -53,12 +53,3 @@ class Solution:
 			l -= 1
 
 		return ans
-
-A = "ZZ"
-ans = Solution().titleToNumber(A)
-print(ans)
-
-'''
-19010
-3 + 26*1 + 19
-'''
