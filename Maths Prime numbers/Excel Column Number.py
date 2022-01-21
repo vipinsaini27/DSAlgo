@@ -45,8 +45,20 @@ Explanation 1:
 class Solution:
 
 	def titleToNumber(self, A):
-		pass
+		charNum = lambda c: ord(c) - 64
+		l = len(A) - 1
+		ans = 0
+		for ch in A:
+			ans = ans + 26**l * charNum(ch)
+			l -= 1
 
-A = "ABCD"
+		return ans
+
+A = "ZZ"
 ans = Solution().titleToNumber(A)
-print(A)
+print(ans)
+
+'''
+19010
+3 + 26*1 + 19
+'''
