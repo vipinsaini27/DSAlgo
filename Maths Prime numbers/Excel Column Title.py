@@ -74,8 +74,3 @@ class Solution:
                 A = A // 26
 
         return ans
-
-
-A = 980089
-ans = Solution().convertToTitle(A)
-print(ans)
