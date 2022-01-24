@@ -51,6 +51,19 @@ Explanation 2:
  The value of 6C2 % 13 is 2.
 """
 
+
 class Solution:
 
     def solve(self, A, B, C):
+        hash = [[1] * (B + 1) for _ in range(A + 1)]
+
+        for i in range(A + 1):
+            hash[i][1] = i % C
+
+        for i in range(2, A + 1):
+            j = 2
+            while j <= B and j < i:
+                hash[i][j] = (hash[i - 1][j] + hash[i - 1][j - 1]) % C
+                j += 1
+
+        return hash[A][B]
