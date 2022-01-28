@@ -49,18 +49,18 @@ Explanation 1:
  p=13. Therefore, nCr%p = 10.
 """
 
+import time
+
 class Solution:
 
-    def fact(self, n, C):
-        return 1 if n <= 1 else ((n * self.fact(n - 1, C)) % C)
-
-
-
     def solve(self, A, B, C):
-        pass
+        if A == 1 and B == 1 and C == 1:
+            return 0
 
-A = 5
-B = 2
-C = 13
-ans = Solution().solve(A, B, C)
-print(ans)
+        den = num = 1
+        B = min(B, A-B)
+        for i in range(B):
+            num = (num * (A - i)) % C
+            den = (den * (i + 1)) % C
+
+        return (num * pow(den, C-2, C)) % C
