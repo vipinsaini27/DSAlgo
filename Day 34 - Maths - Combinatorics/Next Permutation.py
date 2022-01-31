@@ -50,20 +50,28 @@ Explanation 2:
 class Solution:
 
     def nextPermutation(self, A):
-        i = 0
-        j = len(A) - 1
-        while i < j:
+        l = len(A)
+        i = l - 1
+        while i > 0 and A[i-1] > A[i]:
+            i -= 1
 
+        if i == 0:
+            j = l - 1
+        else:
+            j = i
+            i -= 1
 
-        i = 0
-        j = len(A) - 1
+            while j < l and A[i] < A[j]:
+                j += 1
+
+            j -= 1
+            A[i], A[j] = A[j], A[i]
+            i += 1
+            j = l - 1
+
         while i < j:
             A[i], A[j] = A[j], A[i]
             i += 1
             j -= 1
 
         return A
-
-A = [4, 3, 2, 1]
-ans = Solution().nextPermutation(A)
-print(A)
