@@ -51,6 +51,16 @@ Explanation 2:
  Elements 5 and 11 have atleast 2 elements strictly greater than themselves.
 """
 
+"""
+Solution Approach
+As the array contains distinct elements, All the elements other than the largest element and the second largest element have atleast 2 greater elements than themselves in the array.
+
+We can find the largest/greatest element('firstGreatest') by iterating through the array once.
+
+Once largest element is found, we can find the second largest('secondGreatest') element by just finding the largest element in the array excluding 'firstGreatest'.
+
+Now we can build the answer by just including the array elements other than 'firstLargest' and 'SecondLargest'.
+"""
 
 class Solution:
     

@@ -44,7 +44,20 @@ Explanation 2:
  f(2, 2) + f(2, 3) + f(3, 2) + f(3, 3) = 0 + 1 + 1 + 0 = 2
 """
 
-import math
+"""
+Solution Approach
+Assume that all values in input have only 1 bit i.e. Ai = 0 or 1.
+Lets say A = count of elements which are 0
+and B = count of elements which are 1
+
+In this case our answer is just 2 * A * B, since each such pair contributes 1 to answer.
+
+Can you combine this logic if we have multiple bits?
+
+Note that all bits are independent in counting, since we are counting number of bits which are different in each pair.
+So, we just do the same process for all different bits. Since Ai is an integer, we just have to do this for 31 different 
+bits, so our solution is O(31*N).
+"""
 
 class Solution:
 
@@ -68,7 +81,3 @@ class Solution:
             ans = (ans + ((cnt[i] * (l - cnt[i])) * 2) % m) % m
 
         return ans
-
-A = [1, 3, 5]
-ans = Solution().cntBits(A)
-print(ans)

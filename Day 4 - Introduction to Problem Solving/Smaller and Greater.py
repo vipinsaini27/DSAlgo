@@ -25,6 +25,19 @@ Explanation:
     only 2 have a strictly smaller and strictly greater element, 1 and 3 respectively.
 """
 
+"""
+Solution Approach
+One of the easiest way to solve this problem is,
+Find the smallest element and the greatest element of the array and then
+traverse the array and count those elements which are (smallest < A[i] and A[i] < greatest).
+
+ans = 0;
+for(int i : A)
+{
+if(smallest < i and i < greatest)
+ans += 1;
+}
+"""
 
 class Solution:
     

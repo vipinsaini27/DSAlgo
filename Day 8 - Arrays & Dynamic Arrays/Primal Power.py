@@ -42,6 +42,15 @@ Explanation 2:
  7 and 11 are prime numbers. Hence, Primal Power = 2.
 """
 
+"""
+Solution Approach
+If a number is less than or equal to 1, then it can never be a prime number.
+
+If i-th integer in the array is positive, you can check for every integer in the range [1, √A[i]], whether it divides A[i] or not.
+
+If there exists such a number, then A[i] is not prime, else it is a prime.
+"""
+
 class Solution:
     
     def solve(self, A):

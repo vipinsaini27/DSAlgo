@@ -41,6 +41,22 @@ Explanation 1:
  1 occurs exactly once in Input 2.
 """
 
+"""
+Solution Approach
+Having noticed that if X has 1 in that position, we will have 3x+1 number of 1s in that position. If X has 0 in that 
+position, we will have 3x+1 number of 0 in that position.
+
+A straightforward implementation is to use an array of size 32 to keep track of the total count of ith bit.
+
+We can improve this based on the previous solution using three bitmask variables:
+
+ones as a bitmask to represent the ith bit had appeared once.
+twos as a bitmask to represent the ith bit had appeared twice.
+threes as a bitmask to represent the ith bit had appeared three times.
+When the ith bit had appeared for the third time, clear the ith bit of both ones and twos to 0. The final answer will be 
+the value of ones.
+"""
+
 class Solution:
 
     def singleNumber(self, A):

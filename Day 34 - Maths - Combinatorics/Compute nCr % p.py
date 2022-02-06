@@ -49,6 +49,20 @@ Explanation 1:
  p=13. Therefore, nCr%p = 10.
 """
 
+"""
+Solution Approach
+This problem can be solved using Fermat’s Little theorem.
+
+a^p = a (mod p) where p is a prime number.
+
+a^(p-1) = 1 (mod p)
+
+Multiply by a inverse on both sides
+
+a^(p-2) = a^(-1) (mod p).
+Using the above result, nCr can be calulated as ( fact[n]%p ) * inversemodulo( fact[n-r] %p ) * inversemodulo( fact[r] %p ).
+"""
+
 import time
 
 class Solution:

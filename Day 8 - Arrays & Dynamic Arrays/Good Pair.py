@@ -54,6 +54,10 @@ Explanation 3:
  (i,j) = (2,3)
 """
 
+"""
+Solution Approach
+For every i run a loop of j and check if A[i]+A[j]==B or not. Also, check if i!=j.
+"""
 
 class Solution:
 

@@ -55,6 +55,22 @@ Explanation 2:
  So we will return it as two-dimensional array.
 """
 
+"""
+Solution Approach
+Pattern contains exactly A rows.
+
+If you assign each row of the pattern a number from 1 to A then it’s easy to find the pattern .
+
+Suppose A = 4
+Pattern :
+Row-1: 1 0 0 0
+Row-2: 1 2 0 0
+Row-3: 1 2 3 0
+Row-4: 1 2 3 4
+For row i, element at (i,j) is:
+1: j if j<= i.
+2: else 0.
+"""
 
 class Solution:
 

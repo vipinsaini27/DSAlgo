@@ -32,6 +32,18 @@ Explanation 1:
  Similarly, 5 is divisible by 5 so it is replaced by "Buzz".
 """
 
+"""
+Solution Approach
+While Iterating from 1 to N, you need to check the following conditions in sequence:
+
+Check whether the number is divisible by 3 and 5, if that is the case, print FizzBuzz.
+Check whether the number is divisible by 3, in that case, print Fizz.
+Next, check whether the number is divisible by 5, in that case print Buzz.
+Otherwise, print the number.
+Time Complexity: O(N)
+Space Complexity: O(1)
+"""
+
 
 class Solution:
 

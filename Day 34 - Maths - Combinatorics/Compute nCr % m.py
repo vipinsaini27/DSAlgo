@@ -51,6 +51,15 @@ Explanation 2:
  The value of 6C2 % 13 is 2.
 """
 
+"""
+Solution Approach
+If we calculate nCr by calculating factorial of each number and then doing n! / (r! * (n-r)!) % m. This will not work as 
+the factorial can be very large and will cause overflow.
+
+As we know nCr = n-1Cr-1 + n-1Cr.
+
+So we will use Dynamic Programming approach and calculate the value of nCr.
+"""
 
 class Solution:
 

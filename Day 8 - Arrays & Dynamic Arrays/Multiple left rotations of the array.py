@@ -47,6 +47,14 @@ B[1] = 3 which requires 3 times left rotation
 2: [4, 5, 1, 2, 4]
 """
 
+"""
+Solution Approach
+If we are required to do K left rotations , we can append first K elements of the array to the back and delete and delete 
+them from front
+
+If K is greater than size of the array we can simply perform modulo on it with array size as after exactly rotation of 
+array’s size times the array return to it original state
+"""
 
 class Solution:
 

@@ -45,6 +45,21 @@ Explanation 1:
  From the above values only three values are odd.
 '''
 
+"""
+Solution Approach
+For every multiple of 3 it’s fibonacci is even.
+
+Like: F[3]=2, F[6]=8, F[9]=34
+
+So Just find the count of multiples of 3 between A and B and subtract it from total numbers between A and B.
+
+Total Numbers Between A and B = B - A +1
+
+Count of Multiples of 3 between A and B = (B/3) - ((A-1)/3)
+
+So answer will be = (B-A+1) - ((B/3)-((A-1)/3))
+"""
+
 class Solution:
     # @param A : integer
     # @param B : integer

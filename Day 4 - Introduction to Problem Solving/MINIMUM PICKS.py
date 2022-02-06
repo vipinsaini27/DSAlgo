@@ -46,6 +46,15 @@ Minimum of all odd numbers = 1
 ans = 100 - 1 = 99
 """
 
+"""
+Solution Approach
+We can initialize two integers, lets say OddMin and EvMax and initialize them with values infinity and -infinity, 
+respectively.
+Now, we do a linear traversal through the array and if the number is even, we take EvMax = max(EvMax, A[i]), and if the 
+number is odd, we take OddMin = min(OddMin, A[i]).
+At the end of the traversal, we can return the required difference.
+"""
+
 import math
 
 

@@ -46,7 +46,7 @@ Explanation 1:
 class Solution:
 
 	def divide(self, A, B):
-
+		pass
 
 A = 5
 B = 2

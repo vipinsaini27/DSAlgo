@@ -29,6 +29,14 @@ Example Explanation
 We can change the array A = [4, 4, 4, 4, 4]. The time required will be 8 seconds.
 """
 
+"""
+Solution Approach
+Since we can only increase the element by 1. We should increase all element upto the maximum element.
+We can find the maximum element and for finding the minimum number of moves we should find the summation of absolute 
+difference of all 
+elements with maximum element.  
+"""
+
 class Solution:
 
     def solve(self, A):

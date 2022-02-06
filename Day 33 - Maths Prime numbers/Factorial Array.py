@@ -45,6 +45,26 @@ Array B will be : [2, 6, 24]
 The total possible subsequences are 4 : [2], [6], [24], [6, 24].
 '''
 
+"""
+Solution Approach
+We can say that factorial of any number between two consective prime number, say (x, y) will have equal set of prime 
+numbers as that of set of prime numbers in x. Since the factorial of x will contain all prime number less than equal to 
+x.
+
+We will store all the prime number less than equal to highest value in the given array in a sorted order in an auxilary 
+array, say v.
+
+Iterate over all prime number in array v and for each v[i], count the number of values in the array which are less than 
+v[i].
+Let cnt denotes that value of each prime number v[i].
+
+All the subsequences of this will be pow(2, cnt) - 1.
+
+Sum all the values and return the answer.
+
+Note that we are talking of non-empty set. So the number 1 will be discarded.
+"""
+
 import math
 
 class Solution:

@@ -55,6 +55,14 @@ Explanation 2:
     28 -> AB
 '''
 
+"""
+Solution Approach
+Think of it like this.
+
+How would you convert a number to binary ?
+
+Can you apply the same principle here now that the base is different ?
+"""
 
 
 class Solution:

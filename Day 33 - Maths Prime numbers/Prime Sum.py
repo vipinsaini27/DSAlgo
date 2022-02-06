@@ -32,6 +32,16 @@ Example Explanation
  There is only 1 solution for A = 4.
 '''
 
+"""
+Solution Approach
+Read hint1 if you have not already.
+
+Now, coming to the problem of generating prime numbers quickly, we already have a problem SIEVE where we did it.
+However, re-iterating, there are multiple ways of doing it. Probably the easiest way is Sieve of Erastothenes.
+
+Look at the following video to get a detailed idea about the approach :
+"""
+
 n = 2*10**7
 
 prime = [1]*(n+1)

@@ -47,6 +47,21 @@ Explanation 2:
  So will rearranges it in the lowest possible order.
 """
 
+"""
+Solution Approach
+It might help to write down the next permutation on paper to see how and when the sequence changes.
+
+You’ll realize the following pattern :
+
+The suffix which gets affected is in a descending order before the change.
+
+A swap with the smaller element happens and then we reverse the affected suffix.
+
+    1 2 3 -> 1 3 2   // Suffix being just the 3. 
+
+    1 2 3 6 5 4  -> 1 2 4 3 5 6 // Suffix being 6 5 4 in this case. 
+"""
+
 class Solution:
 
     def nextPermutation(self, A):

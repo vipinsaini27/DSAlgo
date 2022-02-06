@@ -42,6 +42,25 @@ Explanation 2:
  1 and 2 appear only once.
 """
 
+"""
+Solution Approach
+If extra memory is used, we can directly store the count and find the elements which occur only once.
+
+To solve without extra memory
+We can use the xor operation , as the xor of two elements gives 0. Take the xor of all the elements of the array. Elements
+which occurs twice will not contribute anything to the xor value.
+
+Suppose that the ith bit is set in the xor value which means that exactly one of the two required number has that bit set.
+
+If we the divide the array elements int two groups: one group contain all elements which have the ith bit set and the other group
+conatins elements which have 0 at the ith bit.
+
+Each group contains one of the two required numbers and for other numbers both of their occurrences will be in the same group.
+
+Now, Xor of elements in the first group gives a number which occurs exactly once.
+Xor of elements in the second group gives another number which occurs exactly once.
+"""
+
 class Solution:
 
     def solve(self, A):

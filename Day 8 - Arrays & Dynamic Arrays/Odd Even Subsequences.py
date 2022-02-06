@@ -36,6 +36,14 @@ Output 2:
         Maximum length odd even subsequence is [2]
 """
 
+"""
+Solution Approach
+find two odd-even subsequences , first whose first element is odd and other whose first element is odd, return the 
+maximum of these two subsequences.
+
+Refer to Complete solution for implementation.
+"""
+
 class Solution:
     # @param A : list of integers
     # @return an integer
