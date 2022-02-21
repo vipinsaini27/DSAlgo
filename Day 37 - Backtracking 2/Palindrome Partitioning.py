@@ -49,7 +49,43 @@ Explanation 2:
 In the given example, only partition possible is "a" .
 """
 
+"""
+Solution Approach
+We can use recursion to generate all possible palindrome partitioning of s.
+
+When on index i, you incrementally check all substring starting from i for being palindromic. If found, you recursively 
+solve the problem for the remaining string and add it to your solution. Start this recursion from starting position of 
+the string.
+
+PS: You can optimize your solution by not computing the answer for same index multiple times using Dynamic Programming.
+"""
+
+import copy
+
 class Solution:
-    # @param A : string
-    # @return a list of list of strings
+
+    def isPalindrom(self, s):
+        i, j = 0, len(s) - 1
+        while i < j:
+            if s[i] != s[j]:
+                return False
+            i += 1
+            j -= 1
+
+        return True
+
+    def palindrome(self, s, li, ans):
+        if len(s) > 0:
+            for i in range(0, len(s)):
+                if self.isPalindrom(s[0:i+1]):
+                    li.append(s[0:i+1])
+                    ans = self.palindrome(s[i+1:], li, ans)
+                    li.pop()
+        else:
+            ans.append(copy.copy(li))
+
+        return ans
+
     def partition(self, A):
+        ans = self.palindrome(A, [], [])
+        return ans
