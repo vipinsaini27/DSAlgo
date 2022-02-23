@@ -53,9 +53,43 @@ Explanation 2:
 All possible combinations are listed.
 """
 
+"""
+Solution Approach
+In every recursion run, you either include the element in the combination or you don’t.
+To account for multiple occurrences of an element, make sure you call the next function without
+incrementing the current index.
+something like :
+void doWork(vector &candidates, int index, vector &current, int currentSum, int target, vector<vector > &ans) { 
+    if (currentSum > target) { return; } 
+    if (currentSum == target) { ans.push_back(current); return; } 
+    for (int i = index; i < candidates.size(); i++) { 
+            current.push_back(candidates[i]); 
+            currentSum += candidates[i];
+            doWork(candidates, i, current, currentSum, target, ans);
+            current.pop_back();
+            currentSum -= candidates[i];
+        }
+    }
+"""
+
+import copy
+
 class Solution:
 
-	def combinationSum(self, A, B):
-        pass
+    def fun(self, A, li, i, B, ans):
+        if sum(li) < B:
+            while i < len(A):
+                li.append(A[i])
+                ans = self.fun(A, copy.copy(li), i, B, ans)
+                li.pop()
+                i += 1
+        elif sum(li) == B:
+            ans.append(li)
 
+        return ans
 
+    def combinationSum(self, A, B):
+        A = list(set(A))
+        A = sorted(A)
+        ans = self.fun(A, [], 0, B, [])
+        return ans
