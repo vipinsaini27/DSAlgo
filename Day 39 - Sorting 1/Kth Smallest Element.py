@@ -46,6 +46,16 @@ Explanation 2:
  2nd element after sorting is 2.
 """
 
+"""
+Solution Approach
+The algorithm of selection sort should be used.
+The selection sort algorithm sorts an array by repeatedly
+finding the minimum element (considering ascending order)
+from unsorted part and putting it at the beginning.
+You need to get the minimum element to the beginning of the array
+only B times as you require the Bth element.
+"""
+
 class Solution:
 
 	def kthsmallest(self, A, B):
