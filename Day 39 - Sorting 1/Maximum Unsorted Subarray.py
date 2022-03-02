@@ -43,29 +43,46 @@ Explanation 2:
 A is already sorted.
 """
 
+"""
+Solution Approach
+Assume that Al, …, Ar is the minimum-unsorted-subarray which is to be sorted.
+then min(Al, …, Ar) >= max(A0, …, Al-1)
+and max(Al, …, Ar) <= min(Ar+1, …, AN-1)
+You can use this to observe and solve.
+How would you solve now?
+You can use 2 pointer technique to solve this question.
+"""
+
 class Solution:
 
     def subUnsort(self, A):
         i = 0
+        a, b = None, None
+        while i < len(A) - 1:
+            if A[i] > A[i+1]:
+                if a is None and b is None:
+                    a = A[i + 1]
+                    b = A[i]
+                else:
+                    if A[i+1] < a:
+                        a = A[i + 1]
+                    if A[i] > b:
+                        b = A[i]
 
-        while i < len(A) - 1 and A[i] <= A[i+1]:
             i += 1
 
-        if i == len(A) - 1:
+        if a is None and b is None:
             return [-1]
 
-        j = len(A) - 1
-        x = A[j]
-        while j > i:
-            if A[j] < A[j-1]:
-                break
-            elif A[j] > A[j-1]:
-                x = j - 1
-            j -= 1
+        ai = 0
+        while ai < len(A) and a >= A[ai]:
+            ai += 1
 
+        bi = len(A) - 1
+        while bi >= 0 and b <= A[bi]:
+            bi -= 1
 
-        return [i, x]
+        if ai < bi:
+            return [ai, bi]
 
-A = [1, 2, 3, 4, 5]
-ans = Solution().subUnsort(A)
-print(ans)
+        return [-1]
