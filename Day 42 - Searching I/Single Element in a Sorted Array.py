@@ -42,11 +42,32 @@ Explanation 2:
  2 appears once
 """
 
+"""
+Solution Approach
+You need to return the index of 1 time occuring element >= x.
+You can do this by binary search.
+Note that this is classic binary search. Instead of looking for the element x,
+you are looking for the least elements >= x.
+You can do this by binary search.
+Look for its implementation. There are multiple ways to do this.
+Remember that index starts from 0.
+"""
+
 class Solution:
 
     def solve(self, A):
-        pass
+        L, H = 0, len(A) - 1
+        while L < H:
+            M = (L + H) // 2
+            if A[M] == A[M+1]:
+                if (H - M + 1) % 2 != 0:
+                    L = M
+                else:
+                    H = M - 1
+            else:
+                if (H - M) % 2 != 0:
+                    L = M + 1
+                else:
+                    H = M
 
-A = [1, 1, 3, 3, 4, 5, 5, 7, 7, 8, 8]
-ans = Solution().solve(A)
-print(ans)
+        return A[H]
