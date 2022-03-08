@@ -67,14 +67,15 @@ class Solution:
         A = sorted(A)
         mx, mi = 0, 0
         i, j = 0, len(A) - 1
+        m = 10**9 + 7
         while i < j:
-            mx += abs(A[j] - A[i])
+            mx = (mx + abs(A[i] - A[j])) % m
             i += 1
             j -= 1
 
         i = 0
         while i < len(A) - 1:
-            mi += abs(A[i+1] - A[i])
+            mi = (mi + abs(A[i+1] - A[i])) % m
             i += 2
 
         return [mx, mi]
