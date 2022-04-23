@@ -44,18 +44,31 @@ Explanation 3:
  There are 2 unique pairs with difference 0, the pairs are {1, 1} and {2, 2}.
 """
 
-class Solution:
 
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
     def solve(self, A, B):
         ans = 0
-        for i in range(1, len(A)):
-            for j in range(0, i):
-                if abs(A[i] - A[j]) == B:
-                    ans += 1
+        A = sorted(A)
+
+        i, j = 1, 0
+        while i < len(A):
+            diff = abs(A[i] - A[j])
+            if diff == B:
+                ans += 1
+
+            if diff <= B:
+                val = A[i]
+                while i < len(A) and A[i] == val:
+                    i += 1
+            elif diff > B:
+                val = A[j]
+                while j < i and A[j] == val:
+                    j += 1
+
+            if i == j:
+                i += 1
 
         return ans
-
-A = [1, 1, 1, 2, 2]
-B = 0
-ans = Solution().solve(A, B)
-print(ans)
