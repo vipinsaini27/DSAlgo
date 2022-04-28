@@ -35,8 +35,40 @@ Explanation 2:
 No container is formed.
 """
 
+"""
+Solution Approach
+Description of approach 1:
+
+Note 1: When you consider a1 and aN, then the area is (N-1) * min(a1, aN).
+Note 2: The base (N-1) is the maximum possible.
+This implies that if there was a better solution possible, it will definitely have height greater than min(a1, aN).
+
+B * H > (N-1) * min(a1, aN)
+We know that, B < (N-1)
+So, H > min(a1, aN)
+
+This means that we can discard min(a1, aN) from our set and look to solve this problem again from the start.
+If a1 < aN, then the problem reduces to solving the same thing for a2, aN.
+Else, it reduces to solving the same thing for a1, aN-1
+"""
+
+
 class Solution:
-	# @param A : list of integers
-	# @return an integer
+
 	def maxArea(self, A):
-        pass
+		if len(A) == 1:
+			return 0
+
+		ans = 0
+		i, j = len(A) - 1, 0
+
+		while j < i:
+			area = (i - j) * min(A[i], A[j])
+			ans = max(area, ans)
+
+			if A[i] >= A[j]:
+				j += 1
+			else:
+				i -= 1
+
+		return ans
