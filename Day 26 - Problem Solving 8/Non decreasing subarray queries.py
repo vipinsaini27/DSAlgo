@@ -49,7 +49,7 @@ Here note that we are not taking the arr[r] value because A[r+1] is not our conc
 """
 
 class Solution:
-    
+
     def solve(self, A, B):
         ans = []
         for q in B:
