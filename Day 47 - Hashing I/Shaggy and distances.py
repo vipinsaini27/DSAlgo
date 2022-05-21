@@ -40,5 +40,16 @@ class Solution:
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
-        pass
+        hash = {}
+        ans = -1
+
+        for i in range(len(A)):
+            if A[i] in hash:
+                if ans == -1:
+                    ans = i - hash[A[i]]
+                else:
+                    ans = min(ans, i - hash[A[i]])
+            hash[A[i]] = i
+
+        return ans
 

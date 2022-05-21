@@ -37,4 +37,15 @@ class Solution:
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
-        pass
+        sm = 0
+        hash = set([0])
+
+        for i in range(len(A)):
+            sm += A[i]
+
+            if sm in hash:
+                return 1
+            
+            hash.add(sm)
+        
+        return 0

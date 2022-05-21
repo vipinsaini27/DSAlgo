@@ -36,4 +36,15 @@ Explanation 2:
 class Solution:
     
     def longestConsecutive(self, A):
-        pass
+        hash = {}
+        ans = 1
+        A = sorted(A)
+
+        for v in A:
+            if v-1 in hash:
+                hash[v] = hash[v-1]+1
+                ans = max(ans, hash[v])
+            else:
+                hash[v] = 1
+
+        return ans

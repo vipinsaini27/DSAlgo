@@ -44,4 +44,23 @@ class Solution:
     # @param B : list of integers
     # @return a list of integers
     def solve(self, A, B):
-        pass
+        hashA = {}
+        hashB = set(B)
+        A = sorted(A)
+        ans = []
+
+        for v in A:
+            if v not in hashA:
+                hashA[v] = 0
+            hashA[v] += 1
+
+        for v in B:
+            if v in hashA:
+                for _ in range(hashA[v]):
+                    ans.append(v)
+        
+        for v in A:
+            if v not in hashB:
+                ans.append(v)
+
+        return ans
