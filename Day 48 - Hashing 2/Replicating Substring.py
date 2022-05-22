@@ -44,4 +44,16 @@ class Solution:
     # @param B : string
     # @return an integer
     def solve(self, A, B):
-        pass
+        hashMap = {}
+        for c in B:
+            if c not in hashMap:
+                hashMap[c] = 0
+            hashMap[c] += 1
+        
+        i = 0
+        while i < len(B):
+            if hashMap[B[i]] % A != 0:
+                return 0
+            i += 1
+        
+        return 1

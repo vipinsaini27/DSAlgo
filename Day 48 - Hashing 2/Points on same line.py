@@ -42,4 +42,20 @@ class Solution:
     # @param B : list of integers
     # @return an integer
     def solve(self, A, B):
-        pass
+        ans = 0
+        hashMap = {}
+
+        for i in range(len(A)):
+            for j in range(i, len(A)):
+                slope = (B[j] - B[i]) / (A[j] - A[i])
+                if slope not in hashMap:
+                    hashMap[slope] = 0
+                hashMap[slope] += 1
+                ans = max(ans, hashMap[slope])
+        
+        return ans
+
+A = [-1, 0, 1, 2, 3, 3]
+B = [1, 0, 1, 2, 3, 4]
+ans = Solution().solve(A, B)
+print(ans)
