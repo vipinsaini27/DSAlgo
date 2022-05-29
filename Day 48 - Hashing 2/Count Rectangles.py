@@ -45,4 +45,22 @@ class Solution:
     # @param B : list of integers
     # @return an integer
     def solve(self, A, B):
-        pass
+        hashSet = set([])
+        ans = 0
+
+        for i in range(len(A)):
+            hashSet.add((A[i], B[i]))
+
+        for i in range(len(A)):
+            for j in range(i+1, len(A)):
+                if A[i] != A[j] and B[i] != B[j]:
+                    if (A[i], B[j]) in hashSet and (A[j], B[i]) in hashSet:
+                        ans += 1
+        
+        return ans//2
+
+
+A = [1, 1, 2, 2, 3, 3]
+B = [1, 2, 1, 2, 1, 2]
+ans = Solution().solve(A, B)
+print(ans)

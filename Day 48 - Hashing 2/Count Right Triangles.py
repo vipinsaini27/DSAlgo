@@ -44,9 +44,34 @@ Explanation 2:
                                                        (1, 2), (3, 1), (3, 2)
 """
 
+"""
+Solution Approach
+Try fixing each point as the intersection of perpendicular and base and finding other points.
+
+Once it is fixed, for the other two points, one point will share the same x-coordinate, and the other point will share the same 
+y-coordinate with the selected point.
+
+We can use a map to store the points for points sharing the same x or y coordinate.
+"""
+
 class Solution:
-    # @param A : list of integers
-    # @param B : list of integers
-    # @return an integer
+    
     def solve(self, A, B):
-        pass
+        hashMapA = {}
+        hashMapB = {}
+        ans = 0
+        mod = 10**9 + 7
+
+        for i in range(len(A)):
+            if A[i] not in hashMapA:
+                hashMapA[A[i]] = 0
+            if B[i] not in hashMapB:
+                hashMapB[B[i]] = 0
+
+            hashMapA[A[i]] += 1
+            hashMapB[B[i]] += 1
+
+        for i in range(len(A)):
+            ans = (ans + ((hashMapA[A[i]] - 1) * (hashMapB[B[i]] - 1))) % mod
+
+        return ans
