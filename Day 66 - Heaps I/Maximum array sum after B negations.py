@@ -53,9 +53,28 @@ Explanation 2:
  Final array after B modifications = [57, -3, 14, 87, 42, 38, 31, 7, 28, 61]
 """
 
+"""
+Solution Approach
+This problem can simply be solved by just changing the minimum element A[i] to -A[i].
+Keep on getting the minimum element from the array and multiply that element by -1. Do this exactly B times.
+It is easy to observe that if the minimum element is zero, we can’t increase our answer by any modification.
+If the minimum element is x < 0, then just change it to -x.
+If the minimum element is x > 0 and the number of operations left is even. You do not need to change anything.
+If the minimum element is x > 0 and the number of operations left is odd. We can directly change the number of operations left to 0 and set x to -x.
+Now, just find the sum of all the elements.
+"""
+
+from heapq import heapify, heappush, heappop
+
 class Solution:
     # @param A : list of integers
     # @param B : integer
     # @return an integer
     def solve(self, A, B):
-        pass
+        heapify(A)
+
+        for _ in range(B):
+            element = heappop(A)
+            heappush(A, -1*element)
+        
+        return sum(A)
