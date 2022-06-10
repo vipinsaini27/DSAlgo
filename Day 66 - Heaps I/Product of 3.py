@@ -63,8 +63,47 @@ Explanation 2:
  So, the output is [-1, -1, 260, 520].
 """
 
+"""
+Solution Approach
+If we have traversed the array till some number (say ith number), we will only add numbers further to it, and no deletion will occur.
+
+A max heap will have the largest number at the top of it. Once the top number is removed, it will have the second-largest number at the top. Once the second-largest number is removed, we will have the third-largest number at the top.
+
+Using these two observations, we can devise the following algorithm to compute the product of the three largest numbers from the first number to ith number.
+
+Take the ith number, and add it to the max heap.
+Take the top number, this is the largest number from first number to the ith number. Store this in your product.
+Delete the largest number. Now, the top number will have the second largest number. Take this and multiply to the product.
+Delete the top element of the max heap and now the top element is the third largest number. Read that and multiply to the product so far to get the product of the three largest numbers from first to ith number.
+We can directly use priority queues (from STL in CPP) since they are already an implementation of the max heaps.
+
+The above runs for each number in the list, and hence the worst-case time complexity would be O(n log(n)) which would easily fit with the constraints.
+"""
+
+from heapq import heappop, heappush
+
 class Solution:
     # @param A : list of integers
     # @return a list of integers
     def solve(self, A):
-        pass
+        if len(A) < 3:
+            return [-1]*len(A)
+
+        maxHeap = []
+        heappush(maxHeap, -1*A[0])
+        heappush(maxHeap, -1*A[1])
+        ans = [-1, -1]
+
+        for i in range(2, len(A)):
+            heappush(maxHeap, -1*A[i])
+            
+            e1 = -1*heappop(maxHeap)
+            e2 = -1*heappop(maxHeap)
+            e3 = -1*heappop(maxHeap)
+
+            ans.append(e1*e2*e3)
+            heappush(maxHeap, -1*e1)
+            heappush(maxHeap, -1*e2)
+            heappush(maxHeap, -1*e3)
+
+        return ans

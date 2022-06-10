@@ -64,8 +64,49 @@ Explanation 2:
  So, total cost  to connect the ropes into one is 16 + 33 + 133 = 182.
 """
 
+"""
+Solution Approach
+As mentioned in the hint, We should combine the ropes of minimum length first to get the minimum overall cost.
+Let’s try to observe with an example: Suppose we are given four ropes of lengths 4, 6, 8, and 10.
+
+1) First connect ropes of lengths 4 and 6. Now, we have three ropes of length 10(4 + 6), 8 and 10.
+2) Now connect ropes of lengths 8 and 10. Now, we hace two ropes of length 18(8 + 10) and 10(4 + 6).
+3) Now connect both the ropes with cost 18(8 + 10) + 10(4 + 6) = 28 (4 + 6 + 8 + 10).
+
+So, total cost is 28 + 10 + 18 = 56. If we try to connect in some other way, the cost will >= 56.
+
+Let’s find how many times each given initial length is added to the final cost.
+
+In the first step, combine 4 and 6 and the cost of connecting them is 10 = 4 + 6.
+In second step, combine 8 + 10(4 + 6) and cost of connecting them is 18 = 8 + 4 + 6.
+In last step, combine 18 + 10 and cost of connecting them is 28 = 8 + 4 + 6 + 10.
+
+So, it is easy to observe that 4 and 6 are added the most number of times,
+lengths of the ropes which are picked first are included more than once in the total cost.
+So, the idea is to connect the smallest two ropes first and recur for the remaining ropes.
+
+To find the answer, always take the two ropes with the smallest lengths and combine these ropes.
+Keep on doing this until we have only one rope left. This can easily be done using priority_queue.
+"""
+
+from heapq import heapify, heappop, heappush
+
 class Solution:
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
-        pass
+        if len(A) == 1:
+            return A[0]
+
+        heapify(A)
+        ans = 0
+
+        while len(A) > 1:
+            e1 = heappop(A)
+            e2 = heappop(A)
+
+            prod = e1 + e2
+            ans += prod
+            heappush(A, prod)
+
+        return ans

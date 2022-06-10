@@ -61,7 +61,27 @@ Explanation 2:
  Maximum number of chocolates that can be eaten is 33.
 """
 
+from heapq import heapify, heappop, heappush
+import math
+
 class Solution:
     
     def nchoc(self, A, B):
-        pass
+        B = [-i for i in B]
+        heapify(B)
+        ans = 0
+
+        for _ in range(A):
+            maxChoc = -1*heappop(B)
+            ans += maxChoc
+
+            heappush(B, -1*(maxChoc//2))
+
+        return ans
+
+
+
+A = 5
+B = [2, 4, 6, 8, 10]
+ans = Solution().nchoc(A, B)
+print(ans)
