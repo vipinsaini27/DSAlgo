@@ -58,9 +58,3 @@ class Solution:
                         ans += 1
         
         return ans//2
-
-
-A = [1, 1, 2, 2, 3, 3]
-B = [1, 2, 1, 2, 1, 2]
-ans = Solution().solve(A, B)
-print(ans)

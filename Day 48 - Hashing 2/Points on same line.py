@@ -37,22 +37,32 @@ Explanation 2:
  Any 2 points lie on a same line.
 """
 
+from math import gcd
+from collections import defaultdict
+
 class Solution:
-    # @param A : list of integers
-    # @param B : list of integers
-    # @return an integer
+
+    def getSlope(self, x1, y1, x2, y2):
+        X = x2 - x1
+        Y = y2 - y1
+        gcd_ = gcd(Y, X)
+        
+        return (Y // gcd_, X // gcd_)
+
     def solve(self, A, B):
         ans = 0
-        hashMap = {}
 
         for i in range(len(A)):
-            for j in range(i, len(A)):
-                slope = (B[j] - B[i]) / (A[j] - A[i])
-                if slope not in hashMap:
-                    hashMap[slope] = 0
-                hashMap[slope] += 1
-                ans = max(ans, hashMap[slope])
-        
+            dict = defaultdict(lambda: 1)
+            i_max = 0
+            for j in range(i+1, len(A)):
+                slope = self.getSlope(A[i], B[i], A[j], B[j])
+
+                dict[slope] += 1
+
+                i_max = max(i_max, dict[slope])
+            ans = max(ans, i_max)
+
         return ans
 
 A = [-1, 0, 1, 2, 3, 3]
