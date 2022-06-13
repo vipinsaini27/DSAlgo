@@ -65,9 +65,41 @@ Explanation 2:
 
 """
 
+"""
+Solution Approach
+One solution is to use a Min Heap of size k to store k largest numbers.
+The Kth highest element is always at the root and can be found in O(1) time.
+
+How to process a new number?
+Compare the new number value X with the root of the heap. If X is smaller, then ignore it.
+Otherwise, replace root with X and call heapify for the root of the modified heap.
+
+The time complexity of adding a new element and finding the Kth highest element is O(logK).
+STL priority queue can be used to implement a heap directly.
+"""
+
+from heapq import heappush, heappop
+
 class Solution:
-    # @param A : integer
-    # @param B : list of integers
-    # @return a list of integers
+
     def solve(self, A, B):
-        pass
+        if A >= len(B):
+            return [-1]*len(B)
+
+        heap = []
+        ans = []
+        for i in range(A-1):
+            ans.append(-1)
+            heappush(heap, B[i])
+
+        heappush(heap, B[A-1])
+        ans.append(heap[0])
+
+        for i in range(A, len(B)):
+            if B[i] > heap[0]:
+                heappop(heap)
+                heappush(heap, B[i])
+            
+            ans.append(heap[0])
+
+        return ans

@@ -60,9 +60,34 @@ Explanation 2:
  After sorting, the array becomes [1, 2, 10, 17, 21, 95].
 """
 
+"""
+Solution Approach
+Take the first B+1 elements in a list, then finding the minimum of the list will give us the first element in the sorted array.
+Remove the smallest element from the list and add the (B+2)th element from the given array to the list.
+Now taking the minimum of the list will give us the second element in the sorted array as each element is <= B distance away from its sorted position.
+Proceed in the same way and keep on finding the minimum of B+1 elements.
+We can use priority_queue to implement the above solution. Each time we remove the minimum element from the queue and add the new element to the queue.
+Time complexity of removing an element from the priority_queue will be O(log B) as the size of the queue is <= B+1, and we will remove all N elements from the queue one by one.
+So, overall time complexity will be O(NlogB).
+"""
+
+from heapq import heappop, heappush
+
 class Solution:
     # @param A : list of integers
     # @param B : integer
     # @return a list of integers
     def solve(self, A, B):
-        pass
+        ans = []
+        heap = []
+        for i in range(len(A)):
+            if len(heap) < B:
+                heappush(heap, A[i])
+            else:
+                heappush(heap, A[i])
+                ans.append(heappop(heap))
+
+        while heap:
+            ans.append(heappop(heap))
+
+        return ans
