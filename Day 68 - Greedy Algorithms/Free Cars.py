@@ -67,7 +67,41 @@ Explanation 2:
  We are able to buy all cars within their deadline. So, total profit that one can earn is 30.
 """
 
+"""
+Solution Approach
+If at any time we have the option to buy a car which gives more profit than any of the car already taken.
+
+At a particular time, We can buy a car or not.
+
+If we are able to buy all the cars, then it’s fine. If not then we should remove a car with minimum profit which we had bought earlier and take the car with more profit.
+
+Think why this will give us maximum profit.
+"""
+
+from heapq import heappop, heappush
+
 class Solution:
     
     def solve(self, A, B):
-        pass
+        mod = 10**9 + 7
+        data = [[A[i], B[i]] for i in range(len(A))]
+
+        data = sorted(data, key=lambda x: x[0])
+        heap = []
+        
+        ans = 0
+        current_time = 0
+        for i in range(len(data)):
+            buy_time = data[i][0]
+            buy_value = data[i][1]
+            if current_time < buy_time:
+                ans = (ans + buy_value) % mod
+                heappush(heap, buy_value)
+                current_time += 1
+            elif buy_value > heap[0]:
+                min_value = heappop(heap)
+                ans = (ans - min_value)
+                ans = (ans + buy_value) % mod
+                heappush(heap, buy_value)
+
+        return ans

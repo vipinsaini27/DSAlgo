@@ -57,9 +57,36 @@ Explanation 2:
  Since all three jobs collide with each other. We can do only 1 job.
 """
 
+"""
+Solution Approach
+We will think of the greedy approach.
+
+Sort the given jobs according to start time.
+Initialize the answer variable to one, i.e., ans = 1.
+Loop through the jobs.
+If the start time of the job is greater than or equal to the finish time of the current job, we are working on.
+Increment the answer and update the finish time.
+Else if the finish time is lesser than the current finish time, update the current finish time.
+
+Return the answer.
+"""
+
 class Solution:
-    # @param A : list of integers
-    # @param B : list of integers
-    # @return an integer
+    
     def solve(self, A, B):
-        pass
+        jobs = [[A[i], B[i]] for i in range(len(A))]
+
+        jobs = sorted(jobs, key=lambda a: a[1])
+
+        if len(jobs) == 1:
+            return 1
+
+        ans = 1
+        prev_end = jobs[0][1]
+
+        for i in range(1, len(jobs)):
+            if jobs[i][0] >= prev_end:
+                ans += 1
+                prev_end = jobs[i][1]
+
+        return ans
