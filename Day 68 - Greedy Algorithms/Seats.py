@@ -70,4 +70,23 @@ Explanation 2:
 class Solution:
     
     def seats(self, A):
-        pass
+        mod = 10**7 + 3
+        pos = [i for i, c in enumerate(A) if c == 'x']
+        n = len(pos)
+
+        if n == 0:
+            return 0
+        
+        m = n // 2
+        j = pos[m]
+        ans = 0
+        for i in range(m-1, -1, -1):
+            ans = (ans + (j - pos[i] - 1)) % mod
+            j -= 1
+
+        j = pos[m]
+        for i in range(m+1, n):
+            ans = (ans + (pos[i] - j - 1)) % mod
+            j += 1
+
+        return ans
