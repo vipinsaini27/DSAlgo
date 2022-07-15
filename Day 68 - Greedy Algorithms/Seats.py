@@ -66,6 +66,12 @@ Explanation 2:
  They are already together. So, the cost is zero.
 """
 
+"""
+Solution Approach
+string :  .x..x..x.
+positions where x are present {1, 4, 7}
+The Median is 4. So we will move all x near our median. 1st person would need to jump two steps, and 3rd person would also need to jump two steps. Total answer = 4.
+"""
 
 class Solution:
     

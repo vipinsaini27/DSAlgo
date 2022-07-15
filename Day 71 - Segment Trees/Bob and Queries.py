@@ -82,9 +82,110 @@ Explanation 2:
  So, output array is [2, 1].
 """
 
+"""
+Solution Approach
+For each node in a segment tree, you could store the number of 1s in the binary representation of the numbers stored in them.
+
+For type 1 query, the number of 1s increase by 1.
+For type 2 query, the number of 1s decrease by 1 but make sure to keep them greater than or equal to 0.
+For type 3 query, you can simply return a range sum query over the required indices.
+"""
+
+from math import ceil, log2
+
+class SegmentTree():
+
+    def __init__(self):
+        self.STArr = []
+        self.size = None
+
+    def __setST(self, n):
+        self.size = n
+        x = (int)(ceil(log2(n)))
+        max_size = 2 * (int)(2**x) - 1
+        self.STArr = [None]*(max_size)
+
+    def getST(self):
+        return self.STArr
+
+    def __constructST(self, idx, start, end):
+        if start == end:
+            self.STArr[idx] = 0
+        else:
+            mid = (start + end) // 2
+            left = 2*idx + 1
+            right = 2*idx + 2
+            self.__constructST(left, start, mid)
+            self.__constructST(right, mid+1, end)
+            self.STArr[idx] = self.STArr[left] + self.STArr[right]
+
+    def createST(self, n):
+        self.__setST(n)
+        self.__constructST(0, 0, n-1)
+
+    def __sumST(self, start, end, left, right, idx):
+        if start <= left and end >= right:
+            return self.STArr[idx]
+        if end < left or right < start:
+            return 0
+        
+        mid = (left + right) // 2
+        leftIdx = 2*idx + 1
+        rightIdx = 2*idx + 2
+        return self.__sumST(start, end, left, mid, leftIdx) + \
+                    self.__sumST(start, end, mid+1, right, rightIdx)
+
+    def sum(self, start, end):
+        return self.__sumST(start, end, 1, self.size, 0)
+
+    def __updateST(self, start, end, stIdx, idx, op):
+        if start == end:
+            if op == 1:
+                self.STArr[stIdx] += 1
+            else:
+                self.STArr[stIdx] = max(0, self.STArr[stIdx] - 1)
+            return self.STArr[stIdx]
+        else:
+            mid = (start + end) // 2
+            if idx <= mid:
+                childValue1 = self.__updateST(start, mid, 2*stIdx+1, idx, op)
+                childValue2 = self.STArr[2*stIdx+2]
+            else:
+                childValue1 = self.__updateST(mid+1, end, 2*stIdx+2, idx, op)
+                childValue2 = self.STArr[2*stIdx+1]
+
+            self.STArr[stIdx] = childValue1 + childValue2
+        
+        return self.STArr[stIdx]
+
+    def update(self, idx, op):
+        self.__updateST(1, self.size, 0, idx, op)
+
 class Solution:
-    # @param A : integer
-    # @param B : list of list of integers
-    # @return a list of integers
+    
     def solve(self, A, B):
-        pass
+        ans = []
+        obj = SegmentTree()
+        obj.createST(A)
+        for x, y, z in B:
+            if x == 1:
+                obj.update(y, 1)
+            elif x == 2:
+                obj.update(y, 2)
+            else:
+                value = obj.sum(y, z)
+                ans.append(value)
+
+        return ans
+
+A = 5
+B = [   
+    [1, 1, -1],
+    [1, 2, -1],
+    [3, 1, 3],
+    [2, 1, -1],
+    [3, 1, 3]  
+    ]
+
+ans = Solution().solve(A, B)
+print(ans)
