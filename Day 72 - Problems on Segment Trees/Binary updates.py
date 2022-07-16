@@ -77,9 +77,110 @@ Explanation 2:
  For fourth query there is no 5th one.
 """
 
+"""
+Solution Approach
+We can use both Binary Indexed Tree(fenwick tree) or Segment Tree.
+
+Since initially all value of the array A is 1.
+
+Build segment tree on the array A. Node of segment tree will store the sum of elements of the segment represented by the node.
+
+For query, when x == 0, update the value at index x to 0 if it is 1.
+
+For x == 1, we will first do a binary search to find the index let’s say mid and call the query function of segment tree to find the sum of array from 1 to index(mid).
+
+If sum == y, then index (mid) could be the answer. But there may be other value of index less than mid that satisfy the condition. So we update hi = mid-1.
+If sum > y, search in the lower range. So update hi = mid - 1.
+If sum < y, search in the higher range. So update lo = mid + 1.
+
+If there is no index, output -1.
+"""
+
+from math import ceil, log2
+
+class SegmentTree():
+
+    def __init__(self):
+        self.STArr = []
+        self.size = None
+
+    def __setST(self, n):
+        self.size = n
+        x = (int)(ceil(log2(n)))
+        max_size = 2 * (int)(2**x) - 1
+        self.STArr = [None]*(max_size)
+
+    def getST(self):
+        return self.STArr
+
+    def __constructST(self, idx, start, end):
+        if start == end:
+            self.STArr[idx] = 1
+        else:
+            mid = (start + end) // 2
+            left = 2*idx + 1
+            right = 2*idx + 2
+            self.__constructST(left, start, mid)
+            self.__constructST(right, mid+1, end)
+            self.STArr[idx] = self.STArr[left] + self.STArr[right]
+
+    def createST(self, n):
+        self.__setST(n)
+        self.__constructST(0, 0, n-1)
+
+    def __iIndexST(self, target, left, right, idx):
+        mid = (right + left) // 2
+        leftIdx = 2*idx + 1
+        rightIdx = 2*idx + 2
+
+        if left == right:
+            return right
+
+        if self.STArr[idx] < target:
+            return -1
+        
+        if self.STArr[leftIdx] < target:
+            return self.__iIndexST(target-self.STArr[leftIdx], mid+1, right, rightIdx)
+        
+        if self.STArr[leftIdx] >= target:
+            return self.__iIndexST(target, left, mid, leftIdx)
+        
+
+    def getIIndex(self, ithOne):
+        return self.__iIndexST(ithOne, 1, self.size, 0)
+
+    def __updateST(self, start, end, stIdx, idx):
+        if start == end:
+            self.STArr[stIdx] = 0
+            return 0
+        else:
+            mid = (start + end) // 2
+            if idx <= mid:
+                childValue1 = self.__updateST(start, mid, 2*stIdx+1, idx)
+                childValue2 = self.STArr[2*stIdx+2]
+            else:
+                childValue1 = self.__updateST(mid+1, end, 2*stIdx+2, idx)
+                childValue2 = self.STArr[2*stIdx+1]
+
+            self.STArr[stIdx] = childValue1 + childValue2
+        
+        return self.STArr[stIdx]
+
+    def update(self, idx):
+        self.__updateST(1, self.size, 0, idx)
+        print(self.STArr)
+
 class Solution:
-    # @param A : integer
-    # @param B : list of list of integers
-    # @return a list of integers
+    
     def solve(self, A, B):
-        pass
+        obj = SegmentTree()
+        obj.createST(A)
+        ans = []
+
+        for x, y in B:
+            if x == 0:
+                obj.update(y)
+            else:
+                ans.append(obj.getIIndex(y))
+
+        return ans
