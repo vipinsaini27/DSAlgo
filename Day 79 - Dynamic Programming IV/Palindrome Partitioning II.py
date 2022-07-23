@@ -51,4 +51,16 @@ Explanation 2:
 class Solution:
     
     def minCut(self, A):
-        pass
+        n = len(A)
+        p = [[False]*n for _ in range(n)]
+        cuts = [0]*n
+
+        for i in range(n):
+            minCuts = i
+            for j in range(i+1):
+                if (A[i] == A[j]) and (i-j < 2 or p[j+1][i-1]):
+                    p[j][i] = True
+                    minCuts = min(minCuts, 0 if j == 0 else cuts[j-1]+1)
+            cuts[i] = minCuts
+
+        return cuts[-1]
